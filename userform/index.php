@@ -26,7 +26,9 @@ switch ($action) {
        }
 
         // capitalize the first letters only of the name
-        $name = ucfirst($name);
+        //$name = ucfirst($name);
+        $name = strtolower($name);
+        $name = ucwords($name);
 
         // get first and last name from complete name  
         $i = strpos($name, ' ');
