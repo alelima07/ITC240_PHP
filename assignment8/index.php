@@ -15,49 +15,28 @@ switch ($action) {
         $phone = filter_input(INPUT_POST, 'phone');
 
         // trim the spaces from the start and end of all data
-        $name = $trim($name);
-        $email = $trim($email);
-        $phone = $trim($phone);
-
-        // validate that name is not empty
-        if (empty($name)) {
-        $message = 'You must enter a name.';
-        break;
-
-        }
+        $name = trim($name);
+        $email = trim($email);
+        $phone = trim($phone);
        
+        // validate that name is not empty
+       if (empty($name)) {
+           $message = 'You must enter your name.';
+           break;
+       }
+
         // capitalize the first letters only of the name
+        //$name = ucfirst($name);
         $name = strtolower($name);
         $name = ucwords($name);
 
-        // get first name from complete name  
+        // get first and last name from complete name  
         $i = strpos($name, ' ');
         if ($i === false) {
             $first_name = $name;
         } else {
             $first_name = substr($name, 0, $i);
-        }
-
-        // get middle name from complete name
-        $i = strpos($name, ' ');
-        $j = strrpos($name, ' ');
-        if ($i === false) {
-            middle_name = $name;
-            //echo 'DEBUG FLAG 01';
-        } else {
-            $middle_name = substr($name, $i, ($j - $i));
-            //echo 'DEBUG FLAG 02';
-        }
-
-        }
-
-        // get last name from complete name
-        $i = strrpos($name, ' ');
-        if ($i === false) {
-            $last_name = $name;
-        }else {
-            $last_name = substr($name, $i);
-        }
+            $last_name = substr($name, strlen($first_name));
         }
 
         // validate email
@@ -89,11 +68,13 @@ switch ($action) {
             $part1 = substr($phone, 0, 3);
             $part2 = substr($phone, 3);
             $phone = $part1 . '-' . $part2;
+            $shortPhone = $phone;
         } else {
-            $part1 = substr($phone, 0, 3);
-            $part2 = substr($phone, 3, 3);
-            $part3 = substr($phone, 6);
-            $phone = $part1 . '-' . $part2 . '-' . $part3;
+            $areaCode = substr($phone, 0, 3);
+            $part1 = substr($phone, 3, 3);
+            $part2 = substr($phone, 6);
+            $shortPhone = $part1 . '-' . $part2;
+            $phone = $areaCode . '-' . $shortPhone;
         }
 
         // format the message
@@ -102,8 +83,11 @@ switch ($action) {
             "Thank you for entering this data:\n\n" .
             "Name: $name\n" .
             "Email: $email\n" .
-            "Phone: $phone\n";
-
+            "Phone: $phone\n\n" .
+            "First Name: $first_name\n" .
+            "Last Name: $last_name\n\n" .
+            "Area code: $areaCode\n" .
+            "Phone number: $shortPhone";  
         break;
 }
 include 'string_tester.php';
