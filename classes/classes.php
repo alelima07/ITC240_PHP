@@ -45,13 +45,13 @@ class Calculator {
             <input type="number" name="num1">
             <select name="operations">
                 <option value="">Select operator</option>
-                <option value="add">PLUS(+)</option>
-                <option value="sub">MINUS(-)</option>
-                <option value="mult">TIMES(*)</option>
-                <option value="div">DIVIDED BY(/)</option>
+                <option value="add">SUM</option>
+                <option value="sub">MINUS</option>
+                <option value="mult">MULTIPLICATION</option>
+                <option value="div">DIVISION</option>
             </select>
             <input type="number" name="num2">
-            <input type="submit" value="CALCULATE">
+            <input type="submit" value="CHECK ANSWER">
         </form>
         <?php
         $calc = new Calculator;
@@ -72,7 +72,7 @@ class Calculator {
                 $calc->result = $calc->divide();
                 $calc->operator = "/";
             } else {
-                $calc->result = "Please select an operator.";
+                $calc->result = "Choose an operator.";
             }
             echo "<p>" . $calc->num1 . " " . $calc->operator. " " . $calc->num2 . " = " . $calc->result . "</p>";
         } 
